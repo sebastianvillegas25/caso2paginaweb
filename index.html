@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotar AI Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome para los íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluir AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Incluir Tailwind CSS (si lo estás usando) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+        /* Línea gris más gruesa */
+        .line {
+            width: 80%;
+            height: 8px;  /* Haciendo la línea más gruesa */
+            background-color: #d1d5db; /* Gris */
+            margin: 30px auto;
+            z-index: -1;
+        }
+        /* Estilo de los íconos */
+        .brand-icons i {
+            font-size: 40px;
+            margin: 0 15px;
+            color: #333;
+            transition: transform 0.3s ease;
+        }
+        .brand-icons i:hover {
+            transform: scale(1.2);
+            color: #38a169; /* Verde al pasar el ratón */
+        }
+        /* Estilo de los nombres debajo de los íconos */
+        .brand-names {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        /* Estilos para los botones */
+        .button-with-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .button-with-icon i {
+            font-size: 18px; /* Tamaño del ícono */
+        }
+        /* Estilo para la nueva sección de texto y cuadros */
+        .features-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+        .left-text {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .right-boxes {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+        .right-box {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .right-box h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .right-box p {
+            font-size: 16px;
+            color: #555;
+        }
+        /* Estilo para el cuadro verde con el círculo de porcentaje */
+        .green-box {
+            background-color: #38a169;
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .percentage-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#38a169 0% 12%, #e2e8f0 12% 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+        }
+        .green-box p {
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            margin-top: 15px;
+        
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: auto;
+            position: relative;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .molecule-box {
+            position: absolute;
+            right: -70px;
+            top: 10px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .molecule-box img {
+            width: 50px;
+        }
+
+        .extra-info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .box {
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .jade-box {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .black-box {
+            background-color: #333;
+            color: white;
+        }
+ /* Contenedor del carrusel */
+.brand-slider {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Carrusel en movimiento continuo */
+.brand-icons {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: marquee 10s linear infinite;
+}
+
+/* Logos con espaciado */
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Ajusta según el tamaño deseado */
+}
+
+/* Animación de desplazamiento infinito */
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+        /* Fuente y fondo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000;
+    margin: 0;
+    padding: 20px;
+}
+
+#imageContainer, #videoContainer {
+    transition: all 0.5s ease-in-out;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Sección izquierda */
+.left-section {
+    max-width: 40%;
+}
+
+/* Título alineado a la izquierda en negro */
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* Botones de categorías */
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-btn {
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Sección derecha (fondo negro) */
+.right-section {
+    background-color: #000;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor de tarjetas */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+/* Tarjetas */
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+}
+
+/* Fondos de las tarjetas */
+.card-bg {
+    border-radius: 15px;
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #00c9ff, #92fe9d);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+}
+
+.chat-message {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+.chat-message.green {
+    color: #10b981; /* Green color for highlighted messages */
+}
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+}
+.card-bg {
+    background-color: #f0f5ff; /* Light blue background for chat messages */
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Botón principal */
+.btn-primary {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 25px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#tutorialVideo {
+    width: 100%; /* O el tamaño que necesites */
+    height: auto;
+    display: none; /* Inicialmente oculto */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#tutorialVideo:not(.hidden) {
+    opacity: 1;
+    display: block;
+}
+
+
+#demoModal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#demoModal .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+}
+/* Estilos para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .column, .col {
+    width: 48% !important;
+  }
+  
+  .row, .columns, .flex-container {
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <!-- Barra de navegación -->
+    <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fade-in">
+        <!-- Logo y nombre -->
+        <div class="flex items-center fade-in">
+            <img src="imagenes/logo.png" alt="Logo de Rotar AI" class="h-8 mr-2"> 
+            <h1 class="text-xl font-bold">Rotar AI</h1>
+        </div>
+
+        <!-- Menú de navegación -->
+        <nav class="fade-in">
+            <ul class="flex space-x-6 items-center">
+                <li><a href="paginas2/solutions.html" class="hover:text-green-500 transition">Soluciones</a></li>
+                <li><a href="paginas2/resources.html" class="hover:text-green-500 transition">Recursos</a></li>
+                <li><a href="paginas2/pricing.html" class="hover:text-green-500 transition">Precios</a></li>
+                <li><a href="public/login.php" class="hover:text-green-500 transition">Iniciar sesión</a></li>
+                <li>
+                    <button id="Makeyourreservationhere" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                        Haz tu reservación aquí
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        
+    </header>
+
+    <section class="flex flex-col md:flex-row items-center justify-between py-16 px-8 fade-in">
+    <!-- Lado Izquierdo: Título y Texto -->
+    <div class="w-full md:w-1/2 text-left fade-in">
+        <h2 class="text-6xl font-bold leading-tight">
+            El Compañero Definitivo de <br> <span class="bg-green-200 px-2 rounded">Servicio al <span class="text-green-600">Cliente</span></span> 
+            <span class="bg-green-200 px-2 rounded">Impulsado por IA</span>
+        </h2>
+        <p class="mt-4 text-lg text-gray-700">Adopta la tecnología de chatbots IA en una herramienta de comunicación soportada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.</p>
+    </div>
+
+    <!-- Lado Derecho: Imagen con Botones de Superposición -->    
+    <div class="w-full md:w-1/2 relative flex justify-end">
+    <div id="imageContainer" class="w-full max-w-xl relative transition-all duration-500 ease-in-out transform hover:scale-105">
+        <img id="tutorialImage" src="imagenes/atencion.png" alt="Chatbot de IA" class="w-full rounded-lg shadow-lg object-cover">
+        
+        <div class="absolute top-4 right-4 flex gap-2">
+            <button class="bg-white text-black px-4 py-2 rounded-lg shadow-md text-sm font-semibold">Chatbot</button>
+            <button class="bg-white text-black px-4 py-2 rounded-lg shadow-md text-sm font-semibold">Chat GPT 4</button>
+        </div>
+        
+        <button id="watchButton" class="absolute bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition flex items-center gap-2">
+            <i class="fas fa-play"></i> Ver Tutorial
+        </button>
+    </div>
+
+    <div id="videoContainer" class="hidden w-full max-w-xl relative">
+        <video id="tutorialVideo" class="w-full rounded-lg shadow-lg" controls>
+            <source src="imagenes/video.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+        </video>
+    </div>
+</div>
+
+</section>
+
+<!-- Sección de Información Adicional -->
+<div class="px-8 py-12 grid grid-cols-1 md:grid-cols-2 gap-6 fade-in">
+    <div class="bg-white p-6 rounded-lg shadow-md flex items-center fade-in">
+        <img src="imagenes/moleculas.png" alt="Icono de Molécula" class="w-24 h-24 mr-4 fade-in">
+        <div>
+            <h3 class="font-bold text-lg">Guía: El Manual de Tutorial de Rotar IA</h3>
+            <p class="text-gray-600">Todo lo que necesitas saber sobre los primeros pasos en los chatbots.</p>
+            <a href="#" class="text-green-500 font-semibold mt-2 inline-block">Leer Artículo →</a>
+        </div>
+    </div>
+    <div class="flex gap-4 fade-in">
+        <div class="bg-green-200 p-6 rounded-lg shadow-md flex-1 text-center fade-in">
+            <span class="text-4xl font-bold">+500</span>
+            <p class="text-gray-700 text-sm">Grandes empresas utilizan Rotar IA para sus servicios</p>
+        </div>
+        <div class="bg-black text-white p-6 rounded-lg shadow-md flex-1 text-center fade-in">
+            <p class="text-lg font-semibold">Servicio al cliente impulsado por IA</p>
+            <div class="flex justify-center mt-2">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('watchButton').addEventListener('click', function() {
+    const imageContainer = document.getElementById('imageContainer');
+    const videoContainer = document.getElementById('videoContainer');
+    
+    // Animación de desvanecimiento y escala
+    imageContainer.classList.add('opacity-0', 'scale-90');
+    
+    setTimeout(() => {
+        imageContainer.style.display = 'none';
+        videoContainer.style.display = 'block';
+        videoContainer.classList.add('opacity-100');
+        
+        const video = document.getElementById('tutorialVideo');
+        video.play();
+    }, 500);
+});
+
+document.getElementById('tutorialVideo').addEventListener('ended', function() {
+    const imageContainer = document.getElementById('imageContainer');
+    const videoContainer = document.getElementById('videoContainer');
+    
+    // Animación de regreso
+    videoContainer.classList.remove('opacity-100');
+    videoContainer.classList.add('opacity-0');
+    
+    setTimeout(() => {
+        videoContainer.style.display = 'none';
+        imageContainer.style.display = 'block';
+        imageContainer.classList.remove('opacity-0', 'scale-90');
+        imageContainer.classList.add('opacity-100', 'scale-100');
+    }, 500);
+});
+</script>
+
+<style>
+#imageContainer, #videoContainer {
+    transition: all 0.5s ease-in-out;
+}
+</style>
+
+</body>
+</html>
+<!-- Sección de marcas con animación infinita -->
+<section class="text-center my-16 overflow-hidden relative">
+    <div class="line w-full h-[2px] bg-gray-300 mb-6"></div>
+    <div class="brand-slider">
+        <div class="brand-icons">
+            <div class="brand">
+                <i class="fab fa-spotify text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">Spotify</div>
+            </div>
+            <div class="brand">
+                <i class="fab fa-microsoft text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">Microsoft</div>
+            </div>
+            <div class="brand">
+                <i class="fab fa-google text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">Google</div>
+            </div>
+            <div class="brand">
+                <i class="fas fa-shield-alt text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">McAfee</div>
+            </div>
+            <div class="brand">
+                <i class="fab fa-fedex text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">FedEx</div>
+            </div>
+            <!-- Duplicamos los logos para que la animación sea continua sin cortes -->
+            <div class="brand">
+                <i class="fab fa-spotify text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">Spotify</div>
+            </div>
+            <div class="brand">
+                <i class="fab fa-microsoft text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">Microsoft</div>
+            </div>
+            <div class="brand">
+                <i class="fab fa-google text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">Google</div>
+            </div>
+            <div class="brand">
+                <i class="fas fa-shield-alt text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">McAfee</div>
+            </div>
+            <div class="brand">
+                <i class="fab fa-fedex text-gray-500 text-3xl"></i>
+                <div class="brand-names text-gray-500 mt-2">FedEx</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section flex flex-wrap md:flex-nowrap items-start gap-6 px-8 py-12">
+    <!-- Left Side: Text + White Background Section -->
+    <div class="w-full md:w-1/2 flex flex-col gap-6" data-aos="fade-right">
+        <!-- Text Section -->
+        <div>
+            <h2 class="text-5xl font-bold text-black leading-tight">
+                Ofrece una experiencia <span class="bg-green-200 px-2 rounded">al cliente</span> de alta calidad
+            </h2>
+            <p class="mt-4 text-lg text-gray-700">
+                Adopta la tecnología de chatbots IA en una herramienta de comunicación respaldada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.
+            </p>
+        </div>
+
+        <!-- White Background Section -->
+        <section class="bg-white py-6 px-8 relative rounded-lg shadow-lg w-full max-w-4xl" data-aos="fade-left">
+            <div class="absolute inset-0 bg-gray-300 opacity-40 rounded-lg z-0"></div>
+            <div class="relative z-10">
+                <!-- Images at the top -->
+                <div class="flex justify-start gap-6 mb-4">
+                    <img src="imagenes/meet.png" alt="Google Meet" class="h-12 w-12" data-aos="zoom-in">
+                    <img src="imagenes/teams.png" alt="Microsoft Teams" class="h-12 w-12" data-aos="zoom-in">
+                    <img src="imagenes/Navlist.png" alt="Navlist" class="h-12 w-12" data-aos="zoom-in">
+                </div>
+
+                <!-- Text below the images -->
+                <h3 class="text-2xl font-semibold text-black">Automatiza tu flujo de trabajo con nuestra integración</h3>
+                <p class="mt-4 text-lg text-gray-700">
+                    Conecta Rotar AI con tus herramientas de servicio al cliente, ventas, marketing y reclutamiento utilizando la API de nuestros amigos, webhooks o integración con Zapier.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Right Side: Boxes -->
+    <div class="w-full md:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
+        <!-- First Box -->
+        <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+            <h3 class="text-lg font-semibold">Aumenta las conversaciones en un 96% con IA</h3>
+            <p class="text-gray-600">Nuestros chatbots y herramientas de automatización impulsadas por IA están aquí para ayudarte.</p>
+        </div>
+
+        <!-- Second Box -->
+        <div class="bg-green-100 p-6 rounded-xl shadow-md">
+            <h3 class="text-lg font-semibold">Siempre accesible con nuestro chat en vivo</h3>
+            <p class="text-gray-600">Mejora la comunicación con chat en vivo en tiempo real.</p>
+        </div>
+
+        <!-- Third Box -->
+        <div class="bg-black text-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg font-semibold">Centraliza tu comunicación</h3>
+            <p>Responde fácilmente a los chats de todos tus canales en una sola vista.</p>
+            <div class="flex flex-wrap justify-center gap-6 mt-4">
+                <!-- Left Column -->
+                <div class="flex flex-col items-center gap-4">
+                    <img src="imagenes/whatsapp.png" alt="WhatsApp" class="h-10 w-10 rounded-full">
+                    <img src="imaganes/messenger.png" alt="Messenger" class="h-10 w-10 rounded-full">
+                </div>
+                <!-- Center Logo -->
+                <div class="flex items-center justify-center">
+                    <img src="imagenes/logo.png" alt="Logo" class="h-14 w-14 rounded-full">
+                </div>
+                <!-- Right Column -->
+                <div class="flex flex-col items-center gap-4">
+                    <img src="imagenes/twitter.png" alt="Twitter" class="h-10 w-10 rounded-full">
+                    <img src="imagenes/instagram.png" alt="Instagram" class="h-10 w-10 rounded-full">
+                </div>
+            </div>
+        </div>
+
+        <!-- Green Percentage Box -->
+        <div class="bg-green-500 text-white p-6 rounded-xl shadow-md flex flex-col items-center">
+            <div class="relative w-20 h-20 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full border-4 border-white border-t-black"></div>
+                <span class="text-xl font-bold">12.5%</span>
+            </div>
+            <p class="text-center mt-4">Obtén valiosos conocimientos de tu audiencia</p>
+            <p class="text-sm">Las estadísticas proporcionan valiosos conocimientos sobre cómo los clientes interactúan con Rotar IA.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
+
+<section class="flex flex-col items-center justify-center px-8 py-12 bg-gray-50">
+    <div class="max-w-4xl text-center">
+        <p class="text-gray-600 text-lg">A lo largo de todo el proceso de compra de tu cliente, Rotar AI te permite deleitarlos en cada paso del camino, desde su primera visita hasta la compra final.</p>
+        <button class="mt-4 bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 text-lg font-medium">
+            Comienza Ahora <span>↗</span>
+        </button>
+    </div>
+
+    <div class="flex flex-col lg:flex-row mt-12 gap-8 w-full max-w-6xl">
+        <!-- Lado Izquierdo Texto -->
+        <div class="flex flex-col gap-6 lg:w-1/2" data-aos="fade-left">
+            <h2 class="text-5xl font-bold text-black leading-tight">
+                <span class="bg-green-200 px-2 rounded">Redefiniendo</span> Conversaciones y 
+                <span class="bg-green-200 px-2 rounded">Mejorando</span> la Experiencia de Usuario
+                <span class="inline-block ml-2 px-3 py-1 border border-black rounded-lg">👁️ →</span>
+            </h2>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold">Interactúa</h3>
+                    <p class="text-gray-600">Contacta proactivamente a los visitantes utilizando saludos personalizados con chatbots. Convierte las visitas al sitio web en oportunidades de venta.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Fomenta</h3>
+                    <p class="text-gray-600">Guía a los clientes hacia la compra mediante recomendaciones y ofertas personalizadas.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Califica</h3>
+                    <p class="text-gray-600">Genera y califica prospectos automáticamente. Transfiere los prospectos de alta intención a tus representantes de ventas en tiempo real para acortar el ciclo de ventas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lado Derecho Imagen -->
+        <div class="lg:w-1/2 flex justify-center" data-aos="fade-right">
+            <img src="imagenes/chat_de_ia.png" alt="Chatbot Rotar AI" class="w-full max-w-lg rounded-lg shadow-lg">
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Testimonios -->
+<section class="bg-white py-16 px-6" data-aos="fade-up">
+    <h2 class="text-3xl font-bold text-center">Lo que dicen nuestros clientes</h2>
+    <div class="mt-8 flex flex-col md:flex-row gap-6">
+        <div class="bg-gray-100 p-6 rounded shadow transform hover:scale-105 transition">
+            <p class="text-lg italic">"¡Este servicio de IA transformó nuestra experiencia con los clientes!"</p>
+            <p class="mt-4 font-bold">- Juan Pérez, CEO</p>
+        </div>
+        <div class="bg-gray-100 p-6 rounded shadow transform hover:scale-105 transition">
+            <p class="text-lg italic">"Lo recomiendo mucho para automatizar el soporte al cliente."</p>
+            <p class="mt-4 font-bold">- Ana López, Gerente</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
+
+<section class="container">
+    <!-- Contenedor de la sección con flexbox -->
+    <div class="flex flex-wrap justify-between items-start">
+        
+    <div class="text-section w-full md:w-1/2" data-aos="fade-right">
+    <h1 class="text-5xl font-bold leading-tight">
+        Usa <span class="text-green-500">plantillas</span> para comenzar tu proyecto
+    </h1>
+    <div class="categories mt-6" data-aos="fade-left">
+        <button class="category-btn">Comercio Electrónico</button>
+        <button class="category-btn">Educación</button>
+        <button class="category-btn">Salud</button>
+        <button class="category-btn">Finanzas</button>
+        <button class="category-btn">RRHH</button>
+        <button class="category-btn">Turismo</button>
+    </div>
+</div>
+
+       <!-- Tarjetas (a la derecha) -->
+<div class="cards w-full md:w-1/2" data-aos="fade-right">
+    <div class="card" data-aos="fade-up">
+        <div class="card-bg">
+            <div class="chat-message text-sm font-medium leading-relaxed">¡Genial! Me alegra que hayas encontrado el plan adecuado para ti 🍎.</div>
+            <div class="chat-message text-sm font-medium leading-relaxed">¿Qué deseas hacer con Rotar AI?</div>
+            <div class="chat-message green text-sm font-semibold leading-relaxed">Conseguir más clientes en mi página web</div>
+        </div>
+        <h3 class="text-xl font-bold mt-3 mb-2">Chatbot para Marketing</h3>
+        <p class="text-base text-gray-600">Proporciona recomendaciones y procesa transacciones en un chat.</p>
+        <a href="#" class="btn-primary inline-block mt-3 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">Probar plantilla gratis →</a>
+    </div>
+    <div class="card" data-aos="fade-up">
+        <div class="card-bg">
+            <div class="chat-message text-sm font-medium leading-relaxed">¡Has calificado para la siguiente ronda de entrevistas, Alvarez! Por favor, avísame tu disponibilidad ✨</div>
+            <div class="chat-message green text-sm font-semibold leading-relaxed">Cualquier hora entre las 2 y 5 PM de mañana</div>
+        </div>
+        <h3 class="text-xl font-bold mt-3 mb-2">Chatbot para RRHH</h3>
+        <p class="text-base text-gray-600">Encuentra talento e interactúa con los candidatos de manera innovadora.</p>
+        <a href="#" class="btn-primary inline-block mt-3 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">Probar plantilla gratis →</a>
+    </div>
+</div>
+
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
+
+
+
+<section class="relative w-full bg-white text-black py-16 px-10">
+    <div class="max-w-6xl mx-auto">
+    
+        <!-- Contenedor del título y el texto gris -->
+        <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-left">
+                Lo que las principales empresas dicen sobre nuestro producto
+            </h2>
+            <p class="text-gray-500 text-lg text-right md:w-2/3">
+                Únete al creciente número de empresas y negocios que han experimentado 
+                el impacto transformador de nuestros servicios de chatbot.
+            </p>
+        </div>
+
+        <!-- Contenedor de la imagen y el testimonio -->
+        <div class="flex flex-col md:flex-row items-center justify-between mt-10 space-y-10 md:space-y-0">
+            
+            <!-- Imagen con borde personalizado -->
+            <div class="relative bg-white p-4 rounded-2xl shadow-lg"
+                style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 80% 95%, 0% 100%);"
+                data-aos="fade-right">
+                <img src="imagenes/chico_con_lentes.png" alt="Imagen de perfil" class="w-72 h-72 rounded-xl object-cover">
+                <p class="absolute bottom-4 left-6 text-white bg-black bg-opacity-75 px-3 py-1 rounded-lg text-sm">
+                    Fundador de ERC Music Market Store
+                </p>
+                <h3 class="absolute bottom-12 left-6 text-xl font-semibold text-white">Mbida Messi</h3>
+            </div>
+
+            <!-- Testimonio con diseño exacto -->
+<div class="relative bg-green-400 text-black p-6 pt-8 rounded-2xl max-w-lg shadow-lg"
+    style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 90% 95%, 0% 100%);"
+    data-aos="fade-left">
+    
+    <!-- Etiqueta de Testimonio -->
+    <span class="absolute top-0 left-4 bg-black text-white px-3 py-1 rounded-lg text-sm flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 8a6 6 0 11-12 0 6 6 0 0112 0zm-6-4a4 4 0 100 8 4 4 0 000-8zM4 18a8 8 0 1116 0H4z" clip-rule="evenodd"/>
+        </svg>
+        Testimonio del Cliente
+    </span>
+
+    <!-- Contenido del testimonio -->
+    <p class="text-lg mt-4">
+        “Me sorprendió el nivel de asistencia que recibí del chatbot de IA proporcionado por ROTAR AI. 
+        Comprendió rápidamente mis preguntas y me dio respuestas precisas y útiles.”
+    </p>
+    
+    <!-- Botón negro de testimonios -->
+    <div class="flex justify-between items-center mt-4">
+        <span class="text-gray-700">1 / 4</span>
+        <button class="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition">
+            Ver más testimonios →
+        </button>
+    </div>
+</div>
+
+</section>
+
+
+<section class="relative w-4/5 bg-green-400 text-black p-10 rounded-lg shadow-lg" 
+        style="clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 95% 100%, 0% 100%);" 
+        data-aos="fade-up" data-aos-duration="1500">
+        
+    <!-- Contenido -->
+    <div class="flex flex-col md:flex-row justify-between items-center">
+        
+        <!-- Texto a la izquierda -->
+        <div class="w-full md:w-2/3" data-aos="fade-right" data-aos-duration="1500">
+            <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+                Toma el control de tu productividad <br> con un <span class="text-black">chatbot GPT-4 ahora</span>
+            </h2>
+            <p class="mt-4 text-lg text-gray-800">
+                Transforma tu Servicio al Cliente con una solución de Chatbot Potenciado por IA y GPT-4. Pruébalo gratis ahora.
+            </p>
+        </div>
+
+        <!-- Botones a la derecha -->
+        <div class="w-full md:w-1/3 flex md:justify-end mt-6 md:mt-0" data-aos="fade-left" data-aos-duration="1500">
+            <button class="bg-black text-white px-6 py-3 rounded-lg flex items-center space-x-2 mr-4 hover:bg-gray-900">
+                <span>Reservar una Demo</span>
+                <svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+            <button class="border border-black text-black px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-200">
+                <span>Contáctanos</span>
+                <svg class="w-5 h-5" fill="none" stroke="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l1.5-1.5a2 2 0 012.83 0l1.5 1.5a2 2 0 002.83 0l1.5-1.5a2 2 0 012.83 0L21 10"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
+
+
+<footer class="bg-black text-white py-12 px-6" data-aos="fade-up" data-aos-duration="1500">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div data-aos="fade-right" data-aos-duration="1500">
+            <h2 class="font-semibold text-lg">Compañía</h2>
+            <ul class="mt-4 space-y-2">
+                <li><a href="#" class="hover:underline">Sobre Rotar AI</a></li>
+                <li><a href="#" class="hover:underline">Precios</a></li>
+                <li><a href="#" class="hover:underline">Demo</a></li>
+            </ul>
+        </div>
+        <div data-aos="fade-right" data-aos-delay="200" data-aos-duration="1500">
+            <h2 class="font-semibold text-lg">Recursos</h2>
+            <ul class="mt-4 space-y-2">
+                <li><a href="#" class="hover:underline">Blog</a></li>
+                <li><a href="#" class="hover:underline">Eventos</a></li>
+                <li><a href="#" class="hover:underline">Biblioteca de Herramientas</a></li>
+            </ul>
+        </div>
+        <div data-aos="fade-left" data-aos-delay="200" data-aos-duration="1500">
+            <h2 class="font-semibold text-lg">Legal</h2>
+            <ul class="mt-4 space-y-2">
+                <li><a href="#" class="hover:underline">Términos de Uso</a></li>
+                <li><a href="#" class="hover:underline">Política de Privacidad</a></li>
+            </ul>
+        </div>
+        <div data-aos="fade-left" data-aos-duration="1500">
+            <h2 class="text-2xl font-bold">Rotar AI</h2>
+            <p class="mt-4 text-gray-400">Estamos a la vanguardia del desarrollo de chatbots con IA, revolucionando la forma en que las empresas interactúan con sus clientes.</p>
+        </div>
+    </div>
+    <hr class="border-gray-700 my-8" data-aos="zoom-in" data-aos-duration="1500">
+    <div class="flex flex-col items-center space-y-4" data-aos="fade-up" data-aos-duration="1500">
+        <div class="flex space-x-4">
+            <button class="px-4 py-2 border rounded-full">Instagram</button>
+            <button class="px-4 py-2 border rounded-full">LinkedIn</button>
+            <button class="px-4 py-2 border rounded-full">Twitter</button>
+            <button class="px-4 py-2 border rounded-full">Github</button>
+        </div>
+        <button class="px-6 py-2 border rounded-full flex items-center space-x-2">
+            <span>&copy; Rotar AI. Todos los Derechos Reservados</span>
+        </button>
+    </div>
+</footer>
+
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const elements = document.querySelectorAll(".fade-in");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            }, { threshold: 0.1 });
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const elements = document.querySelectorAll(".fade-in");
+
+        function showOnScroll() {
+            elements.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    el.classList.add("show");
+                }
+            });
+        }
+
+        // Activar al cargar
+        showOnScroll();
+
+        // Activar al hacer scroll
+        window.addEventListener("scroll", showOnScroll);
+    });
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+   
+    body {
+        background-color: #f5f5f5;
+    }
+   
+    /* Icono de mensaje flotante */
+    .chat-icon {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background-color: #4CAF50;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        transition: transform 0.3s ease;
+    }
+   
+    .chat-icon:hover {
+        transform: scale(1.05);
+    }
+   
+    .chat-icon svg {
+        width: 30px;
+        height: 30px;
+        fill: white;
+    }
+   
+    /* Ventana de chat */
+    .chat-container {
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        width: 350px;
+        height: 450px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 1000;
+    }
+   
+    .chat-header {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+   
+    .chat-header h3 {
+        font-size: 16px;
+    }
+   
+    .close-chat {
+        cursor: pointer;
+        font-size: 18px;
+    }
+   
+    .chat-body {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+   
+    .chat-footer {
+        padding: 10px;
+        border-top: 1px solid #e0e0e0;
+    }
+   
+    /* Mensajes */
+    .message {
+        margin-bottom: 15px;
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        line-height: 1.4;
+        font-size: 14px;
+    }
+   
+    .bot-message {
+        background-color: #f1f1f1;
+        color: #333;
+        align-self: flex-start;
+        border-bottom-left-radius: 5px;
+    }
+   
+    .user-message {
+        background-color: #4CAF50;
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 5px;
+    }
+   
+    /* Opciones del bot */
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+    }
+   
+    .option-button {
+        background-color: white;
+        border: 1px solid #4CAF50;
+        color: #4CAF50;
+        padding: 8px 15px;
+        text-align: left;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+   
+    .option-button:hover {
+        background-color: #e8f5e9;
+    }
+   
+    /* Estilos para dispositivos móviles */
+    @media (max-width: 480px) {
+        .chat-container {
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            right: 0;
+            border-radius: 0;
+        }
+    }
+</style>
+</head>
+<body>
+<!-- Contenido de tu página web aquí -->
+
+<!-- Icono flotante de chat -->
+<div class="chat-icon" id="chat-icon">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+        <path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/>
+    </svg>
+</div>
+
+<!-- Ventana del chatbot -->
+<div class="chat-container" id="chat-container">
+    <div class="chat-header">
+        <h3>Asistente Virtual</h3>
+        <span class="close-chat" id="close-chat">✕</span>
+    </div>
+    <div class="chat-body" id="chat-body">
+        <!-- Aquí se mostrarán los mensajes -->
+    </div>
+    <div class="chat-footer" id="chat-footer">
+        <!-- Aquí aparecerán las opciones o el input cuando sea necesario -->
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elementos del DOM
+        const chatIcon = document.getElementById('chat-icon');
+        const chatContainer = document.getElementById('chat-container');
+        const closeChat = document.getElementById('close-chat');
+        const chatBody = document.getElementById('chat-body');
+        const chatFooter = document.getElementById('chat-footer');
+       
+        // Base de conocimiento del chatbot
+        const botResponses = {
+            inicio: {
+                mensaje: "¡Hola! Soy el asistente virtual. ¿En qué puedo ayudarte hoy?",
+                opciones: [
+                    { texto: "Información sobre productos", siguiente: "productos" },
+                    { texto: "Precios y promociones", siguiente: "precios" },
+                    { texto: "Horarios de atención", siguiente: "horarios" },
+                    { texto: "Contactar con un asesor", siguiente: "asesor" }
+                ]
+            },
+            productos: {
+                mensaje: "Contamos con una amplia gama de productos. ¿Sobre cuál te gustaría saber más?",
+                opciones: [
+                    { texto: "Producto A", siguiente: "productoA" },
+                    { texto: "Producto B", siguiente: "productoB" },
+                    { texto: "Producto C", siguiente: "productoC" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            productoA: {
+                mensaje: "El Producto A es nuestra línea premium. Características principales: alta calidad, durabilidad y diseño elegante. ¿Qué más te gustaría saber?",
+                opciones: [
+                    { texto: "Especificaciones técnicas", siguiente: "especificacionesA" },
+                    { texto: "Precios del Producto A", siguiente: "precioA" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            productoB: {
+                mensaje: "El Producto B es nuestra opción más versátil. Ideal para múltiples usos y excelente relación calidad-precio.",
+                opciones: [
+                    { texto: "Especificaciones técnicas", siguiente: "especificacionesB" },
+                    { texto: "Precios del Producto B", siguiente: "precioB" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            productoC: {
+                mensaje: "El Producto C es nuestra línea económica. Funcional y accesible para todos los presupuestos.",
+                opciones: [
+                    { texto: "Especificaciones técnicas", siguiente: "especificacionesC" },
+                    { texto: "Precios del Producto C", siguiente: "precioC" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            especificacionesA: {
+                mensaje: "Especificaciones del Producto A: Material premium, resistente al agua, garantía de 2 años, disponible en 3 colores.",
+                opciones: [
+                    { texto: "Más sobre Producto A", siguiente: "productoA" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            especificacionesB: {
+                mensaje: "Especificaciones del Producto B: Material resistente, múltiples funciones, garantía de 1 año, disponible en 5 colores.",
+                opciones: [
+                    { texto: "Más sobre Producto B", siguiente: "productoB" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            especificacionesC: {
+                mensaje: "Especificaciones del Producto C: Material estándar, funciones básicas, garantía de 6 meses, disponible en 2 colores.",
+                opciones: [
+                    { texto: "Más sobre Producto C", siguiente: "productoC" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            precioA: {
+                mensaje: "El Producto A tiene un precio de $99.99. Actualmente tenemos un descuento del 10% por lanzamiento.",
+                opciones: [
+                    { texto: "Más sobre Producto A", siguiente: "productoA" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            precioB: {
+                mensaje: "El Producto B tiene un precio de $59.99. Ofrecemos un 15% de descuento si compras 2 unidades.",
+                opciones: [
+                    { texto: "Más sobre Producto B", siguiente: "productoB" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            precioC: {
+                mensaje: "El Producto C tiene un precio de $29.99. Es nuestro producto más económico y accesible.",
+                opciones: [
+                    { texto: "Más sobre Producto C", siguiente: "productoC" },
+                    { texto: "Ver otros productos", siguiente: "productos" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            precios: {
+                mensaje: "Nuestros precios varían según el producto. ¿Sobre cuál te gustaría conocer?",
+                opciones: [
+                    { texto: "Precio Producto A", siguiente: "precioA" },
+                    { texto: "Precio Producto B", siguiente: "precioB" },
+                    { texto: "Precio Producto C", siguiente: "precioC" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            horarios: {
+                mensaje: "Nuestros horarios de atención son: Lunes a Viernes de 9:00 a 18:00 hrs. Sábados de 10:00 a 14:00 hrs.",
+                opciones: [
+                    { texto: "Contactar con un asesor", siguiente: "asesor" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            },
+            asesor: {
+                mensaje: "Para hablar con un asesor, por favor llama al número 123-456-7890 o escribe a info@tuempresa.com. Un representante te atenderá lo antes posible.",
+                opciones: [
+                    { texto: "Horarios de atención", siguiente: "horarios" },
+                    { texto: "Volver al menú principal", siguiente: "inicio" }
+                ]
+            }
+        };
+       
+        // Funciones
+        function mostrarMensaje(texto, tipo) {
+            const mensaje = document.createElement('div');
+            mensaje.classList.add('message', tipo);
+            mensaje.textContent = texto;
+            chatBody.appendChild(mensaje);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+       
+        function mostrarOpciones(opciones) {
+            chatFooter.innerHTML = '';
+            const opcionesContainer = document.createElement('div');
+            opcionesContainer.classList.add('options-container');
+           
+            opciones.forEach(opcion => {
+                const boton = document.createElement('button');
+                boton.classList.add('option-button');
+                boton.textContent = opcion.texto;
+                boton.addEventListener('click', function() {
+                    mostrarMensaje(opcion.texto, 'user-message');
+                    setTimeout(() => {
+                        const respuesta = botResponses[opcion.siguiente];
+                        mostrarMensaje(respuesta.mensaje, 'bot-message');
+                        mostrarOpciones(respuesta.opciones);
+                    }, 500);
+                });
+                opcionesContainer.appendChild(boton);
+            });
+           
+            chatFooter.appendChild(opcionesContainer);
+        }
+       
+        function iniciarChat() {
+            chatBody.innerHTML = '';
+            chatFooter.innerHTML = '';
+           
+            const bienvenida = botResponses.inicio;
+            mostrarMensaje(bienvenida.mensaje, 'bot-message');
+            mostrarOpciones(bienvenida.opciones);
+        }
+       
+        // Event listeners
+        chatIcon.addEventListener('click', function() {
+            chatContainer.style.display = 'flex';
+            chatIcon.style.display = 'none';
+           
+            // Si el chat está vacío, iniciarlo
+            if (chatBody.children.length === 0) {
+                iniciarChat();
+            }
+        });
+       
+        closeChat.addEventListener('click', function() {
+            chatContainer.style.display = 'none';
+            chatIcon.style.display = 'flex';
+        });
+       
+        // Inicializar chat al cargar la página (opcional)
+        // iniciarChat();
+    });
+</script>
+
+</body>
+</html>
