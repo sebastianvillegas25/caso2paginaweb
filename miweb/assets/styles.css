@@ -1,0 +1,260 @@
+/* /assets/styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #2d2d2d;
+    font-weight: bold;
+}
+
+.navbar-links .btn-primary {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #4CAF50;
+    color: white;
+    padding: 100px 20px;
+}
+
+.hero-title {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    margin: 60px 20px;
+    padding: 20px;
+}
+
+.feature {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 30%;
+}
+
+.feature h3 {
+    font-size: 1.5em;
+    color: #2d2d2d;
+}
+
+/* Testimonials Section */
+.testimonials {
+    background-color: #f9f9f9;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.testimonial {
+    background-color: #fff;
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+    font-size: 1.2em;
+    font-style: italic;
+}
+
+/* Footer */
+.footer {
+    background-color: #2d2d2d;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+        /* Fuente y fondo general */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* Contenedor principal */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1100px;
+            margin: auto;
+        }
+        
+        /* Sección izquierda */
+        .left-section {
+            max-width: 40%;
+        }
+        
+        /* Título alineado a la izquierda en negro */
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 20px;
+        }
+        
+        /* Botones de categorías */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-btn {
+            background-color: #fff;
+            border: 1px solid #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        /* Sección derecha (fondo negro) */
+        .right-section {
+            background-color: #000;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Contenedor de tarjetas */
+        .cards {
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* Tarjetas */
+        .card {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 280px;
+            text-align: center;
+        }
+        
+        /* Fondos de las tarjetas */
+        .card-bg {
+            border-radius: 15px;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #00c9ff, #92fe9d);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            gap: 8px;
+        }
+        
+        /* Mensajes estilo chat */
+        .chat-message {
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 12px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            max-width: 90%;
+            text-align: left;
+        }
+        
+        .chat-message.green {
+            background-color: #34e38a;
+            color: white;
+        }
+        
+        /* Botón principal */
+        .btn-primary {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 25px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        #tutorialVideo {
+            width: 100%; /* O el tamaño que necesites */
+            height: auto;
+            display: none; /* Inicialmente oculto */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        #tutorialVideo:not(.hidden) {
+            opacity: 1;
+            display: block;
+        }
+        
+        
+        #demoModal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        #demoModal .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        
+        

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Rotar AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="max-w-lg mx-auto my-12 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Pago Seguro</h2>
+
+        <form action="process_payment.php" method="POST">
+            <!-- Tarjeta de Crédito -->
+            <div class="border p-4 rounded-lg mb-4">
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="payment_method" value="credit_card" class="h-5 w-5 text-green-600" checked>
+                    <span class="text-lg font-semibold">Tarjeta de crédito</span>
+                    <img src="imagenes/tarjeta.png" class="h-6 ml-auto">
+                </label>
+                <input type="text" name="card_number" placeholder="Número de tarjeta" class="w-full mt-3 p-2 border rounded">
+                <div class="flex space-x-3 mt-2">
+                    <input type="text" name="expiry_date" placeholder="MM/AA" class="w-1/2 p-2 border rounded">
+                    <input type="text" name="cvv" placeholder="CVV" class="w-1/2 p-2 border rounded">
+                </div>
+                <input type="text" name="cardholder_name" placeholder="Nombre del titular" class="w-full mt-2 p-2 border rounded">
+            </div>
+
+            <!-- PayPal -->
+            <div class="border p-4 rounded-lg mb-4">
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="payment_method" value="paypal" class="h-5 w-5 text-green-600">
+                    <span class="text-lg font-semibold">PayPal</span>
+                    <img src="imagenes/PayPal.png" class="h-6 ml-auto">
+                </label>
+            </div>
+
+            <!-- Transferencia Bancaria -->
+            <div class="border p-4 rounded-lg mb-6">
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="payment_method" value="bank_transfer" class="h-5 w-5 text-green-600">
+                    <span class="text-lg font-semibold">Transferencia bancaria</span>
+                </label>
+            </div>
+
+            <button type="submit" class="w-full bg-green-500 text-white py-3 rounded-lg text-lg hover:bg-green-700 transition">
+                Confirmar Pago
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>
