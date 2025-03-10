@@ -393,87 +393,214 @@ body {
   .row, .columns, .flex-container {
     flex-wrap: wrap;
   }
+
 }
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.language-selector {
+  margin-bottom: 20px;
+}
+
+#content {
+  margin-top: 20px;
+}
+
 </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
-    <!-- Barra de navegación -->
-    <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fade-in">
+    <!-- Barra de navegación con animación -->
+    <header id="navbar" class="bg-white shadow-md py-4 px-6 flex justify-between items-center transition-all duration-500 animate-fadeIn">
         <!-- Logo y nombre -->
-        <div class="flex items-center fade-in">
-            <img src="imagenes/logo.png" alt="Logo de Rotar AI" class="h-8 mr-2"> 
-            <h1 class="text-xl font-bold">Rotar AI</h1>
+        <div class="flex items-center">
+            <img id="logo" src="imagenes/logo.png" alt="Logo de Rotar AI" class="h-8 mr-2">
+            <h1 id="titulo" class="text-xl font-bold">Rotar AI</h1>
         </div>
-
+        <select id="language-select">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+        </select>
+        
         <!-- Menú de navegación -->
-        <nav class="fade-in">
+        <nav>
             <ul class="flex space-x-6 items-center">
-                <li><a href="paginas2/solutions.html" class="hover:text-green-500 transition">Soluciones</a></li>
-                <li><a href="paginas2/resources.html" class="hover:text-green-500 transition">Recursos</a></li>
-                <li><a href="paginas2/pricing.html" class="hover:text-green-500 transition">Precios</a></li>
-                <li><a href="public/login.php" class="hover:text-green-500 transition">Iniciar sesión</a></li>
+                <li><a href="paginas2/solutions.html" class="nav-link" id="menu-solutions">Soluciones</a></li>
+                <li><a href="paginas2/resources.html" class="nav-link" id="menu-resources">Recursos</a></li>
+                <li><a href="paginas2/pricing.html" class="nav-link" id="menu-pricing">Precios</a></li>
+                <li><a href="public/login.php" class="nav-link" id="menu-login">Iniciar sesión</a></li>
                 <li>
-                    <button id="Makeyourreservationhere" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-                        Haz tu reservación aquí
-                    </button>
+                    <button id="Makeyourreservationhere" class="btn" id="btn-reservation">Haz tu reservación aquí</button>
                 </li>
             </ul>
         </nav>
-        
     </header>
 
-    <section class="flex flex-col md:flex-row items-center justify-between py-16 px-8 fade-in">
+    <script>
+        // Función para reiniciar animaciones
+        function restartAnimation(element, animationClass) {
+            element.classList.remove(animationClass);
+            void element.offsetWidth; // Reinicia el estado del DOM
+            element.classList.add(animationClass);
+        }
+
+        // Crear un observador para detectar cuando el navbar reaparece en la vista
+        let observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    restartAnimation(document.getElementById("navbar"), "animate-fadeIn");
+                    restartAnimation(document.getElementById("logo"), "animate-fadeIn");
+                    restartAnimation(document.getElementById("titulo"), "animate-fadeIn");
+                }
+            });
+        }, { threshold: 0.5 }); // Activa cuando el 50% del navbar es visible
+
+        observer.observe(document.getElementById("navbar"));
+    </script>
+
+    <style>
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Estilos para mejorar la UI */
+        .nav-link {
+            color: #333;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #16a34a;
+            transform: scale(1.1);
+        }
+        .btn {
+            background-color: #16a34a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #15803d;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+<section class="flex flex-col md:flex-row items-center justify-between py-16 px-8 fade-in">
     <!-- Lado Izquierdo: Título y Texto -->
     <div class="w-full md:w-1/2 text-left fade-in">
-        <h2 class="text-6xl font-bold leading-tight">
-            El Compañero Definitivo de <br> <span class="bg-green-200 px-2 rounded">Servicio al <span class="text-green-600">Cliente</span></span> 
+        <h2 id="section-title" class="text-6xl font-bold leading-tight">
+            El Compañero Definitivo de <br> 
+            <span class="bg-green-200 px-2 rounded">
+                Servicio al <span id="service-title" class="text-green-600">Cliente</span>
+            </span> 
             <span class="bg-green-200 px-2 rounded">Impulsado por IA</span>
         </h2>
-        <p class="mt-4 text-lg text-gray-700">Adopta la tecnología de chatbots IA en una herramienta de comunicación soportada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.</p>
+        <p id="section-text" class="mt-4 text-lg text-gray-700">
+            Adopta la tecnología de chatbots IA en una herramienta de comunicación soportada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.
+        </p>
     </div>
 
-    <!-- Lado Derecho: Imagen con Botones de Superposición -->    
-    <div class="w-full md:w-1/2 relative flex justify-end">
-    <div id="imageContainer" class="w-full max-w-xl relative transition-all duration-500 ease-in-out transform hover:scale-105">
-        <img id="tutorialImage" src="imagenes/atencion.png" alt="Chatbot de IA" class="w-full rounded-lg shadow-lg object-cover">
-        
-        <div class="absolute top-4 right-4 flex gap-2">
-            <button class="bg-white text-black px-4 py-2 rounded-lg shadow-md text-sm font-semibold">Chatbot</button>
-            <button class="bg-white text-black px-4 py-2 rounded-lg shadow-md text-sm font-semibold">Chat GPT 4</button>
+    <!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
+    <!-- Lado Derecho: Imagen con Botones de Superposición -->
+    <div class="w-full md:w-1/2 relative flex justify-end mt-8 md:mt-0">
+        <div id="imageContainer" class="w-full max-w-xl relative transition-all duration-500 ease-in-out transform hover:scale-105">
+            <img id="tutorialImage" src="imagenes/atencion_al_cliente.jpg" alt="Chatbot de IA" class="w-full rounded-lg shadow-lg object-cover">
+            
+            <!-- Botones de Superposición -->
+            <div class="absolute top-4 right-4 flex gap-2">
+                <button class="bg-white text-black px-4 py-2 rounded-lg shadow-md text-sm font-semibold">
+                    Chat GPT 4
+                </button>
+            </div>
+
+            <!-- Botón para Ver el Tutorial -->
+            <button id="watchButton" class="absolute bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition flex items-center gap-2">
+                <i class="fas fa-play"></i> Ver Tutorial
+            </button>
         </div>
-        
-        <button id="watchButton" class="absolute bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition flex items-center gap-2">
-            <i class="fas fa-play"></i> Ver Tutorial
-        </button>
-    </div>
 
-    <div id="videoContainer" class="hidden w-full max-w-xl relative">
-        <video id="tutorialVideo" class="w-full rounded-lg shadow-lg" controls>
-            <source src="imagenes/video.mp4" type="video/mp4">
-            Tu navegador no soporta la etiqueta de video.
-        </video>
+        <!-- Contenedor del Video (oculto por defecto) -->
+        <div id="videoContainer" class="hidden w-full max-w-xl relative mt-4">
+            <video id="tutorialVideo" class="w-full rounded-lg shadow-lg" controls>
+                <source src="imagenes/video.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+        </div>
     </div>
+</section>
+
+<script>
+    // Seleccionar el botón "Ver Tutorial"
+    const watchButton = document.getElementById("watchButton");
+    const videoContainer = document.getElementById("videoContainer");
+    const imageContainer = document.getElementById("imageContainer");
+    const tutorialImage = document.getElementById("tutorialImage");
+    
+    // Función para cambiar la imagen por el video
+    watchButton.addEventListener("click", function() {
+        imageContainer.classList.add("hidden"); // Ocultar la imagen
+        videoContainer.classList.remove("hidden"); // Mostrar el video
+        tutorialImage.pause(); // Pausar la imagen (si es necesario, aunque no tenga audio)
+    });
+</script>
+
 </div>
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
 
 </section>
 
 <!-- Sección de Información Adicional -->
 <div class="px-8 py-12 grid grid-cols-1 md:grid-cols-2 gap-6 fade-in">
-    <div class="bg-white p-6 rounded-lg shadow-md flex items-center fade-in">
+    <!-- Primer Contenedor -->
+    <div id="info-1" class="bg-white p-6 rounded-lg shadow-md flex items-center fade-in">
         <img src="imagenes/moleculas.png" alt="Icono de Molécula" class="w-24 h-24 mr-4 fade-in">
         <div>
-            <h3 class="font-bold text-lg">Guía: El Manual de Tutorial de Rotar IA</h3>
-            <p class="text-gray-600">Todo lo que necesitas saber sobre los primeros pasos en los chatbots.</p>
-            <a href="#" class="text-green-500 font-semibold mt-2 inline-block">Leer Artículo →</a>
+            <h3 id="info-title-1" class="font-bold text-lg">Guía: El Manual de Tutorial de Rotar IA</h3>
+            <p id="info-text-1" class="text-gray-600">Todo lo que necesitas saber sobre los primeros pasos en los chatbots.</p>
+            <a id="info-link-1" href="#" class="text-green-500 font-semibold mt-2 inline-block">Leer Artículo →</a>
         </div>
     </div>
+    <!-- Segundo Contenedor -->
     <div class="flex gap-4 fade-in">
-        <div class="bg-green-200 p-6 rounded-lg shadow-md flex-1 text-center fade-in">
-            <span class="text-4xl font-bold">+500</span>
-            <p class="text-gray-700 text-sm">Grandes empresas utilizan Rotar IA para sus servicios</p>
+        <div id="info-2" class="bg-green-200 p-6 rounded-lg shadow-md flex-1 text-center fade-in">
+            <span id="info-stat" class="text-4xl font-bold">+500</span>
+            <p id="info-stat-text" class="text-gray-700 text-sm">Grandes empresas utilizan Rotar IA para sus servicios</p>
         </div>
-        <div class="bg-black text-white p-6 rounded-lg shadow-md flex-1 text-center fade-in">
-            <p class="text-lg font-semibold">Servicio al cliente impulsado por IA</p>
+        <div id="info-3" class="bg-black text-white p-6 rounded-lg shadow-md flex-1 text-center fade-in">
+            <p id="info-3-text" class="text-lg font-semibold">Servicio al cliente impulsado por IA</p>
             <div class="flex justify-center mt-2">
                 <i class="fas fa-star text-yellow-400"></i>
                 <i class="fas fa-star text-yellow-400"></i>
@@ -483,6 +610,20 @@ body {
         </div>
     </div>
 </div>
+
+<!-- Agrega la librería AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        once: false // Cambia a false para que las animaciones se repitan
+    });
+    
+    // Reiniciar AOS cada 5 segundos (5000ms)
+    setInterval(function() {
+        AOS.refresh();
+    }, 5000);
+</script>
 
 <script>
 document.getElementById('watchButton').addEventListener('click', function() {
@@ -518,6 +659,8 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     }, 500);
 });
 </script>
+
+
 
 <style>
 #imageContainer, #videoContainer {
@@ -582,10 +725,10 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     <div class="w-full md:w-1/2 flex flex-col gap-6" data-aos="fade-right">
         <!-- Text Section -->
         <div>
-            <h2 class="text-5xl font-bold text-black leading-tight">
-                Ofrece una experiencia <span class="bg-green-200 px-2 rounded">al cliente</span> de alta calidad
+            <h2 id="info-title-2" class="text-5xl font-bold text-black leading-tight">
+                Ofrece una experiencia <span class="bg-green-200 px-2 rounded" id="service-title">al cliente</span> de alta calidad
             </h2>
-            <p class="mt-4 text-lg text-gray-700">
+            <p id="info-text-2" class="mt-4 text-lg text-gray-700">
                 Adopta la tecnología de chatbots IA en una herramienta de comunicación respaldada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.
             </p>
         </div>
@@ -602,8 +745,8 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
                 </div>
 
                 <!-- Text below the images -->
-                <h3 class="text-2xl font-semibold text-black">Automatiza tu flujo de trabajo con nuestra integración</h3>
-                <p class="mt-4 text-lg text-gray-700">
+                <h3 id="info-3-text-2" class="text-2xl font-semibold text-black">Automatiza tu flujo de trabajo con nuestra integración</h3>
+                <p id="info-3-text" class="mt-4 text-lg text-gray-700">
                     Conecta Rotar AI con tus herramientas de servicio al cliente, ventas, marketing y reclutamiento utilizando la API de nuestros amigos, webhooks o integración con Zapier.
                 </p>
             </div>
@@ -614,25 +757,25 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     <div class="w-full md:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
         <!-- First Box -->
         <div class="bg-gray-100 p-6 rounded-xl shadow-md">
-            <h3 class="text-lg font-semibold">Aumenta las conversaciones en un 96% con IA</h3>
-            <p class="text-gray-600">Nuestros chatbots y herramientas de automatización impulsadas por IA están aquí para ayudarte.</p>
+            <h3 id="box1-title" class="text-lg font-semibold">Aumenta las conversaciones en un 96% con IA</h3>
+            <p id="box1-text" class="text-gray-600">Nuestros chatbots y herramientas de automatización impulsadas por IA están aquí para ayudarte.</p>
         </div>
 
         <!-- Second Box -->
         <div class="bg-green-100 p-6 rounded-xl shadow-md">
-            <h3 class="text-lg font-semibold">Siempre accesible con nuestro chat en vivo</h3>
-            <p class="text-gray-600">Mejora la comunicación con chat en vivo en tiempo real.</p>
+            <h3 id="box2-title" class="text-lg font-semibold">Siempre accesible con nuestro chat en vivo</h3>
+            <p id="box2-text" class="text-gray-600">Mejora la comunicación con chat en vivo en tiempo real.</p>
         </div>
 
         <!-- Third Box -->
         <div class="bg-black text-white p-6 rounded-xl shadow-md">
-            <h3 class="text-lg font-semibold">Centraliza tu comunicación</h3>
-            <p>Responde fácilmente a los chats de todos tus canales en una sola vista.</p>
+            <h3 id="box3-title" class="text-lg font-semibold">Centraliza tu comunicación</h3>
+            <p id="box3-text">Responde fácilmente a los chats de todos tus canales en una sola vista.</p>
             <div class="flex flex-wrap justify-center gap-6 mt-4">
                 <!-- Left Column -->
                 <div class="flex flex-col items-center gap-4">
                     <img src="imagenes/whatsapp.png" alt="WhatsApp" class="h-10 w-10 rounded-full">
-                    <img src="imaganes/messenger.png" alt="Messenger" class="h-10 w-10 rounded-full">
+                    <img src="imagenes/messenger.png" alt="Messenger" class="h-10 w-10 rounded-full">
                 </div>
                 <!-- Center Logo -->
                 <div class="flex items-center justify-center">
@@ -652,11 +795,12 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
                 <div class="absolute inset-0 rounded-full border-4 border-white border-t-black"></div>
                 <span class="text-xl font-bold">12.5%</span>
             </div>
-            <p class="text-center mt-4">Obtén valiosos conocimientos de tu audiencia</p>
-            <p class="text-sm">Las estadísticas proporcionan valiosos conocimientos sobre cómo los clientes interactúan con Rotar IA.</p>
+            <p id="box4-title" class="text-center mt-4">Obtén valiosos conocimientos de tu audiencia</p>
+            <p id="box4-text" class="text-sm">Las estadísticas proporcionan valiosos conocimientos sobre cómo los clientes interactúan con Rotar IA.</p>
         </div>
     </div>
 </section>
+
 
 <!-- Agrega la librería AOS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -672,10 +816,11 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     }, 5000);
 </script>
 
+<!-- Sección principal -->
 <section class="flex flex-col items-center justify-center px-8 py-12 bg-gray-50">
     <div class="max-w-4xl text-center">
-        <p class="text-gray-600 text-lg">A lo largo de todo el proceso de compra de tu cliente, Rotar AI te permite deleitarlos en cada paso del camino, desde su primera visita hasta la compra final.</p>
-        <button class="mt-4 bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 text-lg font-medium">
+        <p id="text1" class="text-gray-600 text-lg">A lo largo de todo el proceso de compra de tu cliente, Rotar AI te permite deleitarlos en cada paso del camino, desde su primera visita hasta la compra final.</p>
+        <button id="button1" class="mt-4 bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 text-lg font-medium">
             Comienza Ahora <span>↗</span>
         </button>
     </div>
@@ -683,7 +828,7 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     <div class="flex flex-col lg:flex-row mt-12 gap-8 w-full max-w-6xl">
         <!-- Lado Izquierdo Texto -->
         <div class="flex flex-col gap-6 lg:w-1/2" data-aos="fade-left">
-            <h2 class="text-5xl font-bold text-black leading-tight">
+            <h2 id="header1" class="text-5xl font-bold text-black leading-tight">
                 <span class="bg-green-200 px-2 rounded">Redefiniendo</span> Conversaciones y 
                 <span class="bg-green-200 px-2 rounded">Mejorando</span> la Experiencia de Usuario
                 <span class="inline-block ml-2 px-3 py-1 border border-black rounded-lg">👁️ →</span>
@@ -691,16 +836,16 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
 
             <div class="space-y-6">
                 <div>
-                    <h3 class="text-lg font-semibold">Interactúa</h3>
-                    <p class="text-gray-600">Contacta proactivamente a los visitantes utilizando saludos personalizados con chatbots. Convierte las visitas al sitio web en oportunidades de venta.</p>
+                    <h3 id="section1-title" class="text-lg font-semibold">Interactúa</h3>
+                    <p id="section1-text" class="text-gray-600">Contacta proactivamente a los visitantes utilizando saludos personalizados con chatbots. Convierte las visitas al sitio web en oportunidades de venta.</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold">Fomenta</h3>
-                    <p class="text-gray-600">Guía a los clientes hacia la compra mediante recomendaciones y ofertas personalizadas.</p>
+                    <h3 id="section2-title" class="text-lg font-semibold">Fomenta</h3>
+                    <p id="section2-text" class="text-gray-600">Guía a los clientes hacia la compra mediante recomendaciones y ofertas personalizadas.</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold">Califica</h3>
-                    <p class="text-gray-600">Genera y califica prospectos automáticamente. Transfiere los prospectos de alta intención a tus representantes de ventas en tiempo real para acortar el ciclo de ventas.</p>
+                    <h3 id="section3-title" class="text-lg font-semibold">Califica</h3>
+                    <p id="section3-text" class="text-gray-600">Genera y califica prospectos automáticamente. Transfiere los prospectos de alta intención a tus representantes de ventas en tiempo real para acortar el ciclo de ventas.</p>
                 </div>
             </div>
         </div>
@@ -714,19 +859,18 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
 
 <!-- Sección de Testimonios -->
 <section class="bg-white py-16 px-6" data-aos="fade-up">
-    <h2 class="text-3xl font-bold text-center">Lo que dicen nuestros clientes</h2>
+    <h2 id="testimonials-title" class="text-3xl font-bold text-center">Lo que dicen nuestros clientes</h2>
     <div class="mt-8 flex flex-col md:flex-row gap-6">
         <div class="bg-gray-100 p-6 rounded shadow transform hover:scale-105 transition">
-            <p class="text-lg italic">"¡Este servicio de IA transformó nuestra experiencia con los clientes!"</p>
-            <p class="mt-4 font-bold">- Juan Pérez, CEO</p>
+            <p id="testimonial1" class="text-lg italic">"¡Este servicio de IA transformó nuestra experiencia con los clientes!"</p>
+            <p id="testimonial1-author" class="mt-4 font-bold">- Juan Pérez, CEO</p>
         </div>
         <div class="bg-gray-100 p-6 rounded shadow transform hover:scale-105 transition">
-            <p class="text-lg italic">"Lo recomiendo mucho para automatizar el soporte al cliente."</p>
-            <p class="mt-4 font-bold">- Ana López, Gerente</p>
+            <p id="testimonial2" class="text-lg italic">"Lo recomiendo mucho para automatizar el soporte al cliente."</p>
+            <p id="testimonial2-author" class="mt-4 font-bold">- Ana López, Gerente</p>
         </div>
     </div>
 </section>
-
 
 <!-- Agrega la librería AOS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -741,47 +885,50 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
         AOS.refresh();
     }, 5000);
 </script>
+
 
 <section class="container">
     <!-- Contenedor de la sección con flexbox -->
     <div class="flex flex-wrap justify-between items-start">
         
-    <div class="text-section w-full md:w-1/2" data-aos="fade-right">
-    <h1 class="text-5xl font-bold leading-tight">
-        Usa <span class="text-green-500">plantillas</span> para comenzar tu proyecto
-    </h1>
-    <div class="categories mt-6" data-aos="fade-left">
-        <button class="category-btn">Comercio Electrónico</button>
-        <button class="category-btn">Educación</button>
-        <button class="category-btn">Salud</button>
-        <button class="category-btn">Finanzas</button>
-        <button class="category-btn">RRHH</button>
-        <button class="category-btn">Turismo</button>
-    </div>
-</div>
+        <div class="text-section w-full md:w-1/2" data-aos="fade-right">
+            <h1 id="section-title" class="text-5xl font-bold leading-tight">
+                Usa <span class="text-green-500" id="highlight">plantillas</span> para comenzar tu proyecto
+            </h1>
+            <div class="categories mt-6" data-aos="fade-left">
+                <button class="category-btn" id="category1">Comercio Electrónico</button>
+                <button class="category-btn" id="category2">Educación</button>
+                <button class="category-btn" id="category3">Salud</button>
+                <button class="category-btn" id="category4">Finanzas</button>
+                <button class="category-btn" id="category5">RRHH</button>
+                <button class="category-btn" id="category6">Turismo</button>
+            </div>
+        </div>
 
-       <!-- Tarjetas (a la derecha) -->
-<div class="cards w-full md:w-1/2" data-aos="fade-right">
-    <div class="card" data-aos="fade-up">
-        <div class="card-bg">
-            <div class="chat-message text-sm font-medium leading-relaxed">¡Genial! Me alegra que hayas encontrado el plan adecuado para ti 🍎.</div>
-            <div class="chat-message text-sm font-medium leading-relaxed">¿Qué deseas hacer con Rotar AI?</div>
-            <div class="chat-message green text-sm font-semibold leading-relaxed">Conseguir más clientes en mi página web</div>
-        </div>
-        <h3 class="text-xl font-bold mt-3 mb-2">Chatbot para Marketing</h3>
-        <p class="text-base text-gray-600">Proporciona recomendaciones y procesa transacciones en un chat.</p>
-        <a href="#" class="btn-primary inline-block mt-3 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">Probar plantilla gratis →</a>
+        <!-- Tarjetas (a la derecha) -->
+        <div class="cards w-full md:w-1/2" data-aos="fade-right">
+            <div class="card" data-aos="fade-up">
+                <div class="card-bg">
+                    <div class="chat-message text-sm font-medium leading-relaxed" id="card-message1">¡Genial! Me alegra que hayas encontrado el plan adecuado para ti 🍎.</div>
+                    <div class="chat-message text-sm font-medium leading-relaxed" id="card-message2">¿Qué deseas hacer con Rotar AI?</div>
+                    <div class="chat-message green text-sm font-semibold leading-relaxed" id="card-message3">Conseguir más clientes en mi página web</div>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-2" id="card-title1">Chatbot para Marketing</h3>
+                <p class="text-base text-gray-600" id="card-description1">Proporciona recomendaciones y procesa transacciones en un chat.</p>
+                <a href="#" class="btn-primary inline-block mt-3 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">Probar plantilla gratis →</a>
+            </div>
+            <div class="card" data-aos="fade-up">
+                <div class="card-bg">
+                    <div class="chat-message text-sm font-medium leading-relaxed" id="card-message4">¡Has calificado para la siguiente ronda de entrevistas, Alvarez! Por favor, avísame tu disponibilidad ✨</div>
+                    <div class="chat-message green text-sm font-semibold leading-relaxed" id="card-message5">Cualquier hora entre las 2 y 5 PM de mañana</div>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-2" id="card-title2">Chatbot para RRHH</h3>
+                <p class="text-base text-gray-600" id="card-description2">Encuentra talento e interactúa con los candidatos de manera innovadora.</p>
+                <a href="#" class="btn-primary inline-block mt-3 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">Probar plantilla gratis →</a>
+            </div>
+        </div>  
     </div>
-    <div class="card" data-aos="fade-up">
-        <div class="card-bg">
-            <div class="chat-message text-sm font-medium leading-relaxed">¡Has calificado para la siguiente ronda de entrevistas, Alvarez! Por favor, avísame tu disponibilidad ✨</div>
-            <div class="chat-message green text-sm font-semibold leading-relaxed">Cualquier hora entre las 2 y 5 PM de mañana</div>
-        </div>
-        <h3 class="text-xl font-bold mt-3 mb-2">Chatbot para RRHH</h3>
-        <p class="text-base text-gray-600">Encuentra talento e interactúa con los candidatos de manera innovadora.</p>
-        <a href="#" class="btn-primary inline-block mt-3 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">Probar plantilla gratis →</a>
-    </div>
-</div>
+</section>
 
 <!-- Agrega la librería AOS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -797,65 +944,54 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     }, 5000);
 </script>
 
-
-
-<section class="relative w-full bg-white text-black py-16 px-10">
-    <div class="max-w-6xl mx-auto">
-    
-        <!-- Contenedor del título y el texto gris -->
-        <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-left">
-                Lo que las principales empresas dicen sobre nuestro producto
-            </h2>
-            <p class="text-gray-500 text-lg text-right md:w-2/3">
-                Únete al creciente número de empresas y negocios que han experimentado 
-                el impacto transformador de nuestros servicios de chatbot.
-            </p>
-        </div>
-
-        <!-- Contenedor de la imagen y el testimonio -->
-        <div class="flex flex-col md:flex-row items-center justify-between mt-10 space-y-10 md:space-y-0">
-            
-            <!-- Imagen con borde personalizado -->
-            <div class="relative bg-white p-4 rounded-2xl shadow-lg"
-                style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 80% 95%, 0% 100%);"
-                data-aos="fade-right">
-                <img src="imagenes/chico_con_lentes.png" alt="Imagen de perfil" class="w-72 h-72 rounded-xl object-cover">
-                <p class="absolute bottom-4 left-6 text-white bg-black bg-opacity-75 px-3 py-1 rounded-lg text-sm">
-                    Fundador de ERC Music Market Store
+    <!-- Sección con los elementos a traducir -->
+    <section class="relative w-full bg-white text-black py-16 px-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up">
+                <h2 id="section-title" class="text-4xl md:text-5xl font-bold text-left">
+                    Lo que las principales empresas dicen sobre nuestro producto
+                </h2>
+                <p id="section-text" class="text-gray-500 text-lg text-right md:w-2/3">
+                    Únete al creciente número de empresas y negocios que han experimentado el impacto transformador de nuestros servicios de chatbot.
                 </p>
-                <h3 class="absolute bottom-12 left-6 text-xl font-semibold text-white">Mbida Messi</h3>
             </div>
 
-            <!-- Testimonio con diseño exacto -->
-<div class="relative bg-green-400 text-black p-6 pt-8 rounded-2xl max-w-lg shadow-lg"
-    style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 90% 95%, 0% 100%);"
-    data-aos="fade-left">
-    
-    <!-- Etiqueta de Testimonio -->
-    <span class="absolute top-0 left-4 bg-black text-white px-3 py-1 rounded-lg text-sm flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M18 8a6 6 0 11-12 0 6 6 0 0112 0zm-6-4a4 4 0 100 8 4 4 0 000-8zM4 18a8 8 0 1116 0H4z" clip-rule="evenodd"/>
-        </svg>
-        Testimonio del Cliente
-    </span>
+            <!-- Testimonios -->
+            <div class="flex flex-col md:flex-row items-center justify-between mt-10 space-y-10 md:space-y-0">
+                <div class="relative bg-white p-4 rounded-2xl shadow-lg"
+                    style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 80% 95%, 0% 100%);" data-aos="fade-right">
+                    <img src="imagenes/chico_con_lentes.png" alt="Imagen de perfil" class="w-72 h-72 rounded-xl object-cover">
+                    <p class="absolute bottom-4 left-6 text-white bg-black bg-opacity-75 px-3 py-1 rounded-lg text-sm">
+                        Fundador de ERC Music Market Store
+                    </p>
+                    <h3 class="absolute bottom-12 left-6 text-xl font-semibold text-white" id="testimonial-author">
+                        Mbida Messi
+                    </h3>
+                </div>
 
-    <!-- Contenido del testimonio -->
-    <p class="text-lg mt-4">
-        “Me sorprendió el nivel de asistencia que recibí del chatbot de IA proporcionado por ROTAR AI. 
-        Comprendió rápidamente mis preguntas y me dio respuestas precisas y útiles.”
-    </p>
-    
-    <!-- Botón negro de testimonios -->
-    <div class="flex justify-between items-center mt-4">
-        <span class="text-gray-700">1 / 4</span>
-        <button class="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition">
-            Ver más testimonios →
-        </button>
-    </div>
-</div>
-
-</section>
+                <div class="relative bg-green-400 text-black p-6 pt-8 rounded-2xl max-w-lg shadow-lg"
+                style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 90% 95%, 0% 100%);" data-aos="fade-left">
+                    <span class="absolute top-0 left-4 bg-black text-white px-3 py-1 rounded-lg text-sm flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 8a6 6 0 11-12 0 6 6 0 0112 0zm-6-4a4 4 0 100 8 4 4 0 000-8zM4 18a8 8 0 1116 0H4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span id="testimonial-label">Testimonio del Cliente</span>
+                    </span>
+                    <p id="testimonial-text" class="text-lg mt-4">
+                        “Me sorprendió el nivel de asistencia que recibí del chatbot de IA proporcionado por ROTAR AI. Comprendió rápidamente mis preguntas y me dio respuestas precisas y útiles.”
+                    </p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-gray-700" id="testimonial-pagination">1 / 4</span>
+                        <button id="testimonial-button" class="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition">
+                            Ver más testimonios →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
 
 
 <section class="relative w-4/5 bg-green-400 text-black p-10 rounded-lg shadow-lg" 
@@ -952,6 +1088,8 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
     </div>
 </footer>
 
+
+</script>
 <!-- Agrega la librería AOS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
@@ -1364,6 +1502,211 @@ document.getElementById('tutorialVideo').addEventListener('ended', function() {
         // iniciarChat();
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const translations = {
+            "es": {
+                "menu-solutions": "Soluciones",
+                "menu-resources": "Recursos",
+                "menu-pricing": "Precios",
+                "menu-login": "Iniciar sesión",
+                "btn-reservation": "Haz tu reservación aquí",
+                "section-title": "El Compañero Definitivo de <br> <span class='bg-green-200 px-2 rounded'>Servicio al <span id='service-title' class='text-green-600'>Cliente</span></span> <span class='bg-green-200 px-2 rounded'>Impulsado por IA</span>",
+                "section-text": "Adopta la tecnología de chatbots IA en una herramienta de comunicación soportada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.",
+                "watchButton": "Ver Tutorial",
+                "info-title-1": "Guía: El Manual de Tutorial de Rotar IA",
+                "info-text-1": "Todo lo que necesitas saber sobre los primeros pasos en los chatbots.",
+                "info-link-1": "Leer Artículo →",
+                "info-stat-text": "Grandes empresas utilizan Rotar IA para sus servicios",
+                "info-3-text": "Servicio al cliente impulsado por IA",
+                "info-title-2": "Ofrece una experiencia <span class='bg-green-200 px-2 rounded'>al cliente</span> de alta calidad",
+                "info-text-2": "Adopta la tecnología de chatbots IA en una herramienta de comunicación respaldada por GPT-4 para ayudar a tus clientes, empoderar a tu equipo y reducir tu carga de trabajo.",
+                "info-3-text-2": "Automatiza tu flujo de trabajo con nuestra integración",
+                "text1": "A lo largo de todo el proceso de compra de tu cliente, Rotar AI te permite deleitarlos en cada paso del camino, desde su primera visita hasta la compra final.",
+                "button1": "Comienza Ahora",
+                "header1": "<span class='bg-green-200 px-2 rounded'>Redefiniendo</span> Conversaciones y <span class='bg-green-200 px-2 rounded'>Mejorando</span> la Experiencia de Usuario <span class='inline-block ml-2 px-3 py-1 border border-black rounded-lg'>👁️ →</span>",
+                "section1-title": "Interactúa",
+                "section1-text": "Contacta proactivamente a los visitantes utilizando saludos personalizados con chatbots. Convierte las visitas al sitio web en oportunidades de venta.",
+                "section2-title": "Fomenta",
+                "section2-text": "Guía a los clientes hacia la compra mediante recomendaciones y ofertas personalizadas.",
+                "section3-title": "Califica",
+                "section3-text": "Genera y califica prospectos automáticamente. Transfiere los prospectos de alta intención a tus representantes de ventas en tiempo real para acortar el ciclo de ventas.",
+                "testimonials-title": "Lo que dicen nuestros clientes",
+                "testimonial1": "\"¡Este servicio de IA transformó nuestra experiencia con los clientes!\"",
+                "testimonial1-author": "- Juan Pérez, CEO",
+                "testimonial2": "\"Lo recomiendo mucho para automatizar el soporte al cliente.\"",
+                "testimonial2-author": "- Ana López, Gerente",
+                
+                // Nuevos textos añadidos
+                "productivity-title": "Toma el control de tu productividad con un chatbot GPT-4 ahora",
+                "productivity-text": "Transforma tu Servicio al Cliente con una solución de Chatbot Potenciado por IA y GPT-4. Pruébalo gratis ahora.",
+                "demo-button": "Reservar una Demo",
+                "contact-button": "Contáctanos",
+                "company-title": "Compañía",
+                "about-rotar": "Sobre Rotar AI",
+                "pricing": "Precios",
+                "resources": "Demo",
+                "blog": "Blog",
+                "events": "Eventos",
+                "tool-library": "Biblioteca de Herramientas",
+                "legal": "Legal",
+                "terms-of-use": "Términos de Uso",
+                "privacy-policy": "Política de Privacidad",
+                "social-media": "Redes Sociales",
+                "footer-rights": "Todos los Derechos Reservados",
+                "industries": "Usa plantillas para comenzar tu proyecto",
+                "ecommerce": "Comercio Electrónico",
+                "education": "Educación",
+                "health": "Salud",
+                "finance": "Finanzas",
+                "hr": "RRHH",
+                "tourism": "Turismo",
+                "plan-success": "¡Genial! Me alegra que hayas encontrado el plan adecuado para ti 🍎.",
+                "action-1": "Conseguir más clientes en mi página web",
+                "action-2": "Chatbot para Marketing",
+                "action-3": "Probar plantilla gratis →",
+                "hr-chatbot": "Chatbot para RRHH",
+                "action-4": "Encuentra talento e interactúa con los candidatos de manera innovadora.",
+                "action-5": "Probar plantilla gratis →",
+                "client-testimonial": "Lo que las principales empresas dicen sobre nuestro producto",
+                "testimonial-1": "“Me sorprendió el nivel de asistencia que recibí del chatbot de IA proporcionado por ROTAR AI. Comprendió rápidamente mis preguntas y me dio respuestas precisas y útiles.”",
+                "testimonial-author": "Fundador de ERC Music Market Store, Mbida Messi",
+                "testimonial-more": "Ver más testimonios →"
+            },
+            "en": {
+                "menu-solutions": "Solutions",
+                "menu-resources": "Resources",
+                "menu-pricing": "Pricing",
+                "menu-login": "Login",
+                "btn-reservation": "Make Your Reservation Here",
+                "section-title": "The Ultimate <br> <span class='bg-green-200 px-2 rounded'>Customer <span id='service-title' class='text-green-600'>Service</span></span> <span class='bg-green-200 px-2 rounded'>AI-Powered Companion</span>",
+                "section-text": "Adopt AI chatbot technology in a GPT-4 supported communication tool to help your customers, empower your team, and reduce workload.",
+                "watchButton": "Watch Tutorial",
+                "info-title-1": "Guide: The Rotar AI Tutorial Manual",
+                "info-text-1": "Everything you need to know about getting started with chatbots.",
+                "info-link-1": "Read Article →",
+                "info-stat-text": "Large companies use Rotar AI for their services",
+                "info-3-text": "AI-powered customer service",
+                "info-title-2": "Offer a high-quality <span class='bg-green-200 px-2 rounded'>customer</span> experience",
+                "info-text-2": "Adopt AI chatbot technology in a GPT-4 powered communication tool to help your customers, empower your team, and reduce your workload.",
+                "info-3-text-2": "Automate your workflow with our integration",
+                "text1": "Throughout your customer’s buying journey, Rotar AI allows you to delight them every step of the way, from their first visit to the final purchase.",
+                "button1": "Start Now",
+                "header1": "<span class='bg-green-200 px-2 rounded'>Redefining</span> Conversations and <span class='bg-green-200 px-2 rounded'>Enhancing</span> User Experience <span class='inline-block ml-2 px-3 py-1 border border-black rounded-lg'>👁️ →</span>",
+                "section1-title": "Engage",
+                "section1-text": "Proactively reach out to visitors using personalized chatbot greetings. Turn website visits into sales opportunities.",
+                "section2-title": "Nurture",
+                "section2-text": "Guide customers to purchase through personalized recommendations and offers.",
+                "section3-title": "Qualify",
+                "section3-text": "Automatically generate and qualify leads. Transfer high-intent leads to your sales reps in real-time to shorten the sales cycle.",
+                "testimonials-title": "What our customers say",
+                "testimonial1": "\"This AI service transformed our customer experience!\"",
+                "testimonial1-author": "- John Smith, CEO",
+                "testimonial2": "\"I highly recommend it for automating customer support.\"",
+                "testimonial2-author": "- Anna Lopez, Manager",
+                
+                // Nuevos textos añadidos
+                "productivity-title": "Take control of your productivity with a GPT-4 chatbot now",
+                "productivity-text": "Transform your Customer Service with an AI-Powered Chatbot solution backed by GPT-4. Try it free now.",
+                "demo-button": "Book a Demo",
+                "contact-button": "Contact Us",
+                "company-title": "Company",
+                "about-rotar": "About Rotar AI",
+                "pricing": "Pricing",
+                "resources": "Demo",
+                "blog": "Blog",
+                "events": "Events",
+                "tool-library": "Tool Library",
+                "legal": "Legal",
+                "terms-of-use": "Terms of Use",
+                "privacy-policy": "Privacy Policy",
+                "social-media": "Social Networks",
+                "footer-rights": "All Rights Reserved",
+                "industries": "Use templates to start your project",
+                "ecommerce": "E-commerce",
+                "education": "Education",
+                "health": "Health",
+                "finance": "Finance",
+                "hr": "HR",
+                "tourism": "Tourism",
+                "plan-success": "Great! I'm glad you've found the right plan for you 🍎.",
+                "action-1": "Get more customers on my website",
+                "action-2": "Marketing Chatbot",
+                "action-3": "Try free template →",
+                "hr-chatbot": "HR Chatbot",
+                "action-4": "Find talent and interact with candidates in an innovative way.",
+                "action-5": "Try free template →",
+                "client-testimonial": "What leading companies say about our product",
+                "testimonial-1": "“I was surprised by the level of assistance I received from the AI chatbot provided by ROTAR AI. It quickly understood my questions and gave accurate and useful answers.”",
+                "testimonial-author": "Founder of ERC Music Market Store, Mbida Messi",
+                "testimonial-more": "See more testimonials →"
+            }
+        };
+
+        function changeLanguage() {
+            const selectedLang = document.getElementById("language-select").value;
+            const elementsToTranslate = Object.keys(translations[selectedLang]);
+    
+            elementsToTranslate.forEach(id => {
+                let element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[selectedLang][id];
+                }
+            });
+        }
+
+        document.getElementById("language-select").addEventListener("change", changeLanguage);
+    });
+</script>
+
+
+<script>
+    const translations = {
+    es: {
+        title: "Lo que las principales empresas dicen sobre nuestro producto",
+        description: "Únete al creciente número de empresas y negocios que han experimentado el impacto transformador de nuestros servicios de chatbot.",
+        testimonialTitle: "Testimonio del Cliente",
+        testimonialText: "Me sorprendió el nivel de asistencia que recibí del chatbot de IA proporcionado por ROTAR AI. Comprendió rápidamente mis preguntas y me dio respuestas precisas y útiles.",
+        demoButton: "Reservar una Demo",
+        contactButton: "Contáctanos",
+        footerCompany: "Compañía",
+        footerResources: "Recursos",
+        footerLegal: "Legal",
+        footerSocial: "Redes Sociales",
+        footerRights: "Todos los Derechos Reservados"
+    },
+    en: {
+        title: "What leading companies say about our product",
+        description: "Join the growing number of businesses that have experienced the transformative impact of our chatbot services.",
+        testimonialTitle: "Customer Testimonial",
+        testimonialText: "I was surprised by the level of assistance I received from the AI chatbot provided by ROTAR AI. It quickly understood my questions and gave accurate and useful answers.",
+        demoButton: "Book a Demo",
+        contactButton: "Contact Us",
+        footerCompany: "Company",
+        footerResources: "Resources",
+        footerLegal: "Legal",
+        footerSocial: "Social Networks",
+        footerRights: "All Rights Reserved"
+    }
+};
+
+function changeLanguage(lang) {
+    document.getElementById('title').textContent = translations[lang].title;
+    document.getElementById('description').textContent = translations[lang].description;
+    document.getElementById('testimonial-title').textContent = translations[lang].testimonialTitle;
+    document.getElementById('testimonial-text').textContent = translations[lang].testimonialText;
+    document.getElementById('demo-button').textContent = translations[lang].demoButton;
+    document.getElementById('contact-button').textContent = translations[lang].contactButton;
+    document.getElementById('footer-company').textContent = translations[lang].footerCompany;
+    document.getElementById('footer-resources').textContent = translations[lang].footerResources;
+    document.getElementById('footer-legal').textContent = translations[lang].footerLegal;
+    document.getElementById('footer-social').textContent = translations[lang].footerSocial;
+    document.getElementById('footer-rights').textContent = translations[lang].footerRights;
+}
+
+</script>
+    
 
 </body>
 </html>
