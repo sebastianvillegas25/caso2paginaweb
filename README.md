@@ -38,5 +38,4 @@ XAMPP instalado (versión recomendada: 8.0 o superior)
 Navegador web moderno (Chrome, Firefox, Edge, Safari)
 
 
-
-link: https://mipaginawebrotariasebas.on.drv.tw/miweb/
+link :https://sebascaso2paginaweb2025.on.drv.tw/miweb/
