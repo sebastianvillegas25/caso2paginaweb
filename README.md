@@ -5,7 +5,7 @@ Rotar IA es una plataforma web especializada en servicios y soluciones de Inteli
 
 ![Rotar IA Logo](imagenes/logo.png)
 
-🌐 [Ver sitio web](https://sebascaso2paginaweb2025.on.drv.tw/miweb/)
+🌐 [Ver sitio web] [https://sebaspaginaweb2025rotaria.on.drv.tw/miweb/]
 
 ## Estructura del Proyecto
 
