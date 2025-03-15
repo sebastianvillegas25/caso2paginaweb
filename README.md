@@ -1,122 +1,144 @@
-🤖 Rotar IA
-Descripción
+# 🤖 Rotar IA
+
+## Descripción
 Rotar IA es una plataforma web especializada en servicios y soluciones de Inteligencia Artificial. El proyecto está diseñado para ofrecer a los usuarios acceso a herramientas de IA, consultoría especializada y recursos educativos sobre tecnologías emergentes en el campo de la inteligencia artificial.
 
-link de la pagina : https://sebaspaginaweb2025rotaria.on.drv.tw/miweb/
-Estructura del Proyecto 
-Directorios Principales
-.vscode/
+![Rotar IA Logo](imagenes/logo.png)
 
-Configuración personalizada de Visual Studio Code
+🌐 [Ver sitio web](https://sebascaso2paginaweb2025.on.drv.tw/miweb/)
 
-assets/
+## Estructura del Proyecto
 
-css/ - Hojas de estilo del proyecto
-js/ - Scripts de JavaScript
-fonts/ - Fuentes personalizadas
+```
+📂 RotarIA/
+├── 📁 .vscode/              # Configuración de Visual Studio Code
+├── 📁 assets/               # Recursos estáticos
+│   ├── 📁 css/              # Hojas de estilo
+│   ├── 📁 js/               # Scripts de JavaScript
+│   └── 📁 fonts/            # Fuentes personalizadas
+├── 📁 controllers/          # Controladores PHP
+│   ├── HomeController.php   # Controlador principal
+│   ├── AuthController.php   # Controlador de autenticación
+│   └── ApiController.php    # Controlador para APIs internas
+├── 📁 imagenes/             # Banco de imágenes
+│   ├── 📁 blog/             # Imágenes para artículos
+│   ├── 📁 productos/        # Imágenes de servicios y productos
+│   └── 📁 team/             # Fotos del equipo
+├── 📁 paginas2/             # Páginas secundarias
+│   ├── pricing.html         # Planes y precios
+│   ├── resources.html       # Recursos educativos
+│   ├── solutions.html       # Soluciones disponibles
+│   ├── about-us.html        # Sobre nosotros
+│   └── contact.html         # Formulario de contacto
+├── 📁 includes/             # Componentes reutilizables
+│   ├── header.php           # Cabecera común
+│   ├── footer.php           # Pie de página común
+│   └── chatbot.php          # Componente del asistente virtual
+├── 📁 public/               # Archivos públicos
+│   ├── 📁 docs/             # Documentación descargable
+│   └── 📁 demos/            # Demostraciones interactivas
+├── 📁 vendor/               # Dependencias (generado por Composer)
+├── checkout.html            # Proceso de pago
+├── conexion.php             # Configuración de la base de datos
+├── config.php               # Configuraciones generales
+├── index.html               # Página principal
+├── composer.json            # Dependencias del proyecto
+└── README.md                # Documentación principal
+```
 
-controllers/
+## ✨ Características Principales
 
-HomeController.php - Gestiona la página principal
-AuthController.php - Maneja autenticación y sesiones
-ApiController.php - Procesa peticiones a APIs internas
+- **Interfaz Intuitiva**: Diseño moderno y fácil de usar que mejora la experiencia del usuario
+- **Diseño Totalmente Responsivo**: Adaptable a cualquier dispositivo (móvil, tablet, escritorio)
+- **Multilingüe**: Soporte para español, inglés y portugués
+- **Asistente Virtual Integrado**: Chatbot impulsado por IA para resolver consultas en tiempo real
+- **Animaciones Optimizadas**: Elementos visuales dinámicos que mantienen el rendimiento
+- **Panel de Control**: Área administrativa para gestionar contenidos y usuarios
+- **Integración con APIs de IA**: Conexión con servicios externos como OpenAI, HuggingFace y otros
+- **Marketplace de Soluciones**: Catálogo de productos y servicios de IA clasificados por industria
+- **Blog Especializado**: Artículos sobre avances y tendencias en inteligencia artificial
+- **Sistema de Pagos Seguro**: Múltiples opciones de pago protegidas con SSL
 
-imagenes/
+## 🛠️ Tecnologías Utilizadas
 
-blog/ - Recursos visuales para artículos
-productos/ - Imágenes de servicios y soluciones
-team/ - Fotografías del equipo
+### Frontend
+- HTML5 & CSS3
+- JavaScript (ES6+)
+- Bootstrap 5
+- SASS
+- jQuery
+- GSAP (para animaciones avanzadas)
 
-paginas2/
+### Backend
+- PHP 8.1
+- MySQL
+- RESTful API
+- JSON Web Tokens (JWT)
 
-pricing.html - Planes y precios disponibles
-resources.html - Centro de recursos educativos
-solutions.html - Catálogo de soluciones de IA
-about-us.html - Información sobre la empresa
-contact.html - Formulario de contacto
+### Herramientas de Desarrollo
+- XAMPP v8.1.12
+- Visual Studio Code
+- Git & GitHub
+- Composer
+- NPM
 
-includes/
+## 📊 Secciones Principales
 
-header.php - Cabecera común para todas las páginas
-footer.php - Pie de página unificado
-chatbot.php - Componente del asistente virtual integrado
+1. **Home**: Presentación de la marca con animaciones interactivas
+2. **Soluciones**: Categorización por industria (salud, finanzas, educación, etc.)
+3. **Recursos**: Artículos, tutoriales, webinars y material descargable
+4. **Planes**: Diferentes niveles de servicios con sus características y precios
+5. **Sobre Nosotros**: Historia, misión, visión y equipo
+6. **Contacto**: Formulario de contacto y mapa de ubicación
 
-public/
+## 🚀  Requisitos Previos
+- XAMPP 8.0+ o servidor compatible con PHP 8.0+
+- MySQL 5.7 o superior
+- Navegador web moderno (Chrome, Firefox, Edge, Safari)
+- Git (opcional, para clonar el repositorio)
 
-docs/ - Documentación técnica descargable
-demos/ - Demostraciones interactivas de productos
+### Pasos de Instalación
 
-vendor/
+1. **Clonar o descargar el repositorio**
+   ```bash
+   git clone https://github.com/tu-usuario/rotar-ia.git
+   ```
 
-Dependencias gestionadas por Composer
+2. **Configurar el servidor local**
+   - Copiar los archivos al directorio `htdocs` de XAMPP
+   - Iniciar los servicios de Apache y MySQL desde el panel de control de XAMPP
 
-Archivos Principales
+3. **Configurar la base de datos**
+   - Importar el archivo `database.sql` a MySQL
+   - Editar el archivo `conexion.php` con las credenciales correspondientes:
+     ```php
+     $host = "localhost";
+     $usuario = "root";
+     $contrasena = "";
+     $baseDatos = "rotar_ia";
+     ```
 
-checkout.html - Sistema de proceso de pago
-conexion.php - Configuración de conexión a base de datos
-config.php - Parámetros generales de configuración
-index.html - Página de inicio del sitio
-composer.json - Gestión de dependencias
-README.md - Documentación del proyecto
+4. **Instalar dependencias (opcional)**
+   ```bash
+   composer install
+   npm install
+   ```
 
-Esta estructura organiza el proyecto en componentes funcionales claramente definidos, facilitando el mantenimiento y escalabilidad del sistema de Rotar IA.
-✨ Características Principales
+5. **Acceder al sitio**
+   - Abrir un navegador y visitar: `http://localhost/rotar-ia`
 
-Interfaz Intuitiva: Diseño moderno y fácil de usar que mejora la experiencia del usuario
-Diseño Totalmente Responsivo: Adaptable a cualquier dispositivo (móvil, tablet, escritorio)
-Multilingüe: Soporte para español, inglés y portugués
-Asistente Virtual Integrado: Chatbot impulsado por IA para resolver consultas en tiempo real
-Animaciones Optimizadas: Elementos visuales dinámicos que mantienen el rendimiento
-Panel de Control: Área administrativa para gestionar contenidos y usuarios
-Integración con APIs de IA: Conexión con servicios externos como OpenAI, HuggingFace y otros
-Marketplace de Soluciones: Catálogo de productos y servicios de IA clasificados por industria
-Blog Especializado: Artículos sobre avances y tendencias en inteligencia artificial
-Sistema de Pagos Seguro: Múltiples opciones de pago protegidas con SSL
 
-🛠️ Tecnologías Utilizadas
-Frontend
+## 👥 Equipo
 
-HTML5 & CSS3
-JavaScript (ES6+)
-Bootstrap 5
-SASS
-jQuery
-GSAP (para animaciones avanzadas)
+- **Sebastián Caso** - *Desarrollador Principal* - [GitHub](https://github.com/sebascaso)
 
-Backend
+## 📄 Licencia
 
-PHP 8.1
-MySQL
-RESTful API
-JSON Web Tokens (JWT)
+Este proyecto está bajo la Licencia MIT 
 
-Herramientas de Desarrollo
+## 📞 Contacto
 
-XAMPP v8.1.12
-Visual Studio Code
-Git & GitHub
-Composer
-NPM
-
-📊 Secciones Principales
-
-Home: Presentación de la marca con animaciones interactivas
-Soluciones: Categorización por industria (salud, finanzas, educación, etc.)
-Recursos: Artículos, tutoriales, webinars y material descargable
-Planes: Diferentes niveles de servicios con sus características y precios
-Sobre Nosotros: Historia, misión, visión y equipo
-Contacto: Formulario de contacto y mapa de ubicación
-
-🚀 Requisitos Previos
-
-XAMPP 8.0+ o servidor compatible con PHP 8.0+
-MySQL 5.7 o superior
-Navegador web moderno (Chrome, Firefox, Edge, Safari)
-Git (opcional, para clonar el repositorio)
-
-👥 Equipo
-
-Sebastián Caso - Desarrollador Principal - GitHub
-
-📄 Licencia
-Este proyecto está bajo la Licencia MIT
+Para consultas o colaboraciones:
+- Email: info@rotaria.com   se actualizara pronto
+- Twitter: [@RotarIA_AI](https://twitter.com/RotarIA_AI)  se actualizara pronto 
+- LinkedIn: [Rotar IA](https://linkedin.com/company/rotaria) se actualizara pronto
